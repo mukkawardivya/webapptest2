@@ -9,7 +9,7 @@ namespace PhoneBookTestApp
         {
             var dbConnection = new SQLiteConnection("Data Source= MyDatabase.sqlite;Version=3;");
             dbConnection.Open();
-
+            CleanUp();
             try
             {
                 SQLiteCommand command =
@@ -19,9 +19,9 @@ namespace PhoneBookTestApp
                 command.ExecuteNonQuery();
 
                 command =
-                    new SQLiteCommand(
-                        "INSERT INTO PHONEBOOK (NAME, PHONENUMBER, ADDRESS) VALUES('Chris Johnson','(321) 231-7876', '452 Freeman Drive, Algonac, MI')",
-                        dbConnection);
+                   new SQLiteCommand(
+                       "INSERT INTO PHONEBOOK (NAME, PHONENUMBER, ADDRESS) VALUES('Chris Johnson','(321) 231-7876', '452 Freeman Drive, Algonac, MI')",
+                       dbConnection);
                 command.ExecuteNonQuery();
 
                 command =
@@ -31,9 +31,9 @@ namespace PhoneBookTestApp
                 command.ExecuteNonQuery();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.Message);
             }
             finally
             {
@@ -53,18 +53,17 @@ namespace PhoneBookTestApp
         {
             var dbConnection = new SQLiteConnection("Data Source= MyDatabase.sqlite;Version=3;");
             dbConnection.Open();
-
             try
             {
                 SQLiteCommand command =
                     new SQLiteCommand(
-                        "drop table PHONEBOOK",
+                        "drop table If Exists PHONEBOOK",
                         dbConnection);
                 command.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception Ex)
             {
-                throw;
+                throw new Exception(Ex.Message);
             }
             finally
             {
